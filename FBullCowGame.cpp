@@ -29,12 +29,11 @@ int32 FBullCowGame::GetMaxTries() const {
 
 void FBullCowGame::Reset()
 {
-	const FString Vocabulary[] = { "pianeta", "pane", "pineta", "pasta", "ape", "sedia" };
+	const FString Vocabulary[] = { "pianeta", "pane", "pineta", "pasta", "ape", "sedia","discoteca","computer","acqua","insetto", };
 	srand(time(NULL));
 	int i = (rand() % 6) + 1;
 /*	const FString HIDDEN_WORD = "plane"; */
 	MyHiddenWord = Vocabulary[i];
-
     MyCurrentTry = 1;
 	bGameIsWon = false;
 
