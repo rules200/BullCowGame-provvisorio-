@@ -2,14 +2,19 @@
 
 */
 #pragma once
-
+#include <thread>         
+#include <chrono>  
 #include <iostream>
 #include <string>
+#include<stdlib.h>
 #include "FBullCowGame.h"
 
+
+using namespace std::chrono;
 // sintassi di unreal engine 4
 using FText = std::string;
 using int32 = int;
+
 
 // funzioni esterne alla classe
 void Printintro();
@@ -19,8 +24,8 @@ void PrintGameSummary();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
-FBullCowGame BCGame; // istanziare un nuovo gioco
-
+FBullCowGame BCGame; // istanza del gioco
+int32 MaxTries = BCGame.GetMaxTries();
 // Inizio gioco
 int main()
 {
@@ -28,9 +33,16 @@ int main()
 	bool bPlayAgain = false;
 	do {
 		Printintro();
-		PlayGame();
+		while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) {
+			auto start = high_resolution_clock::now();
+			PlayGame();
+			auto stop = high_resolution_clock::now();
+			auto duration = duration_cast<seconds>(stop - start);
+			std::cout << "Ci hai messo: "<<duration.count()<<" secondi!" << std::endl;
+		}
 		bPlayAgain = AskToPlayAgain();
 	} while (bPlayAgain);
+	
 
 	return 0; // uscita applicazione
 }
@@ -62,7 +74,7 @@ void PlayGame()
 {
 	BCGame.Reset();
 
-	int32 MaxTries = BCGame.GetMaxTries();
+
 
 	//Numero dei cicli che chiedono l'ipotesi finche' il gioco non e' vinto
 	// e se ci sono ancora dei tentativi
@@ -121,7 +133,11 @@ bool AskToPlayAgain() {
 	std::getline(std::cin, Response);
 	std::cout << std::endl;
 
-	return (Response[0] == 'Y') || (Response[0] == 'y');
+	if (Response[0] == 'y') {
+		system("CLS");
+		return true;
+	}
+	else exit(1);
 	
 }
 

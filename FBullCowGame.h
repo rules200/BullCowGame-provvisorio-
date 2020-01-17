@@ -1,9 +1,9 @@
-/* La logica del gioco ( non contiene il codice) */
+// Uso il pragma once perchè è comodo, mi piacciono le cose comode.
 
 #pragma once
 #include <string>
 
-// sintassi di unreal engine 4
+// sintassi di unreal engine 4 (stavo seguendo una guida per UE4 e stavo usando la sua sintassi
 using FString = std::string;
 using int32 = int;
 
