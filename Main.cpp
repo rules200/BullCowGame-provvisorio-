@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include<stdlib.h>
 #include "FBullCowGame.h"
 
 // sintassi di unreal engine 4
@@ -19,7 +20,7 @@ void PrintGameSummary();
 FText GetValidGuess();
 bool AskToPlayAgain();
 
-FBullCowGame BCGame; // istanziare un nuovo gioco
+FBullCowGame BCGame; // istanza del gioco
 
 // Inizio gioco
 int main()
@@ -31,6 +32,7 @@ int main()
 		PlayGame();
 		bPlayAgain = AskToPlayAgain();
 	} while (bPlayAgain);
+	
 
 	return 0; // uscita applicazione
 }
@@ -121,7 +123,11 @@ bool AskToPlayAgain() {
 	std::getline(std::cin, Response);
 	std::cout << std::endl;
 
-	return (Response[0] == 'Y') || (Response[0] == 'y');
+	if (Response[0] == 'y') {
+		system("CLS");
+		return true;
+	}
+	else exit(1);
 	
 }
 
